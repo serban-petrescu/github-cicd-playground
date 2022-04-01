@@ -1,4 +1,4 @@
-name: Original
+name: Original Direct Vals
 
 on:
   workflow_dispatch:
