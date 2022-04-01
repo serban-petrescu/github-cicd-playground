@@ -19,13 +19,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - id: ENV
-        run: |
-          for s in $(echo '${{ matrix.input }}' | jq -r "to_entries|map(\"ENV_\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
-            echo $s
-            echo $s >> $GITHUB_ENV
-          done
-
       - id: ECHO
         run: |
           cat <<- EOM
@@ -35,10 +28,10 @@ jobs:
                "value": "hardcoded"
             }, {
                "name": "SOME_VARIABLE",
-               "value": "$ENV_SOME_VARIABLE"
+               "value": "${{ matrix.SOME_VARIABLE }}"
             }, {
                "name": "ANOTHER_VARIABLE",
-               "value": "$ENV_ANOTHER_VARIABLE"
+               "value": "${{ matrix.ANOTHER_VARIABLE }}"
             }]
           }
           EOM

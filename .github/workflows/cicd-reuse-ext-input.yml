@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false
       - id: ENV
         run: |
-          INPUT=$(cat envs/${{ github.event.inputs.environment }}.json | jq -R -s '.')
+          INPUT=$(cat envs/${{ github.event.inputs.environment }}.json)
           echo $INPUT
           echo "::set-output name=INPUT_JSON::[$INPUT]"
    outputs: 
