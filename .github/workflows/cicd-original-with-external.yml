@@ -22,7 +22,7 @@ jobs:
 
       - id: ENV
         run: |
-          for s in $(cat "envs/${{ github.event.inputs.environment }}.json" | jq -r "to_entries|map(\"\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
+          for s in $(cat "envs/${{ github.event.inputs.environment }}.json" | jq -r "to_entries|map(\"ENV_\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
             echo $s >> $GITHUB_ENV
           done
 
