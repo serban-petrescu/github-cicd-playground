@@ -24,6 +24,8 @@ jobs:
           INPUT=$(cat envs/${{ github.event.inputs.environment }}.json)
           echo $INPUT
           echo "::set-output name=INPUT_JSON::$INPUT"
+   outputs:
+    INPUT_JSON: ${{ steps.ENV.outputs.INPUT_JSON }}
 
   MAIN: 
    uses: ./.github/workflows/reuse-json-input.yml
