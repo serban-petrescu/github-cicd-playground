@@ -21,9 +21,9 @@ jobs:
           persist-credentials: false
       - id: ENV
         run: |
-          INPUT=$(cat envs/${{ github.event.inputs.environment }}.json)
+          INPUT=$(cat envs/${{ github.event.inputs.environment }}.json | jq -R -s '.')
           echo $INPUT
-          echo "::set-output name=INPUT_JSON::$INPUT"
+          echo "::set-output name=INPUT_JSON::[$INPUT]"
    outputs: 
     INPUT_JSON: ${{ steps.ENV.outputs.INPUT_JSON }}
 

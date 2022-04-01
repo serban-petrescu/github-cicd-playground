@@ -10,6 +10,9 @@ on:
 jobs:
   MAIN: 
    runs-on: ubuntu-latest
+   strategy:
+      matrix: 
+        input: ${{fromJSON(inputs.INPUT_JSON)}}
    steps:
       - id: CHECKOUT
         uses: actions/checkout@v2
@@ -18,7 +21,7 @@ jobs:
 
       - id: ENV
         run: |
-          for s in $(echo '${{ inputs.INPUT_JSON }}' | jq -r "to_entries|map(\"ENV_\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
+          for s in $(echo '${{ matrix.input }}' | jq -r "to_entries|map(\"ENV_\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
             echo $s
             echo $s >> $GITHUB_ENV
           done
