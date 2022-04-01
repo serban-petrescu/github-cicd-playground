@@ -10,6 +10,7 @@ on:
         options:
           - a
           - b
+          - ALL
 
 jobs:
   INPUT: 
@@ -21,7 +22,7 @@ jobs:
           persist-credentials: false
       - id: ENV
         run: |
-          if [[ -z "${{ github.event.inputs.environment }}" ]]; then
+          if [ "${{ github.event.inputs.environment }}" = "ALL" ]; then
             INPUT=$(jq -n 'inputs' envs/*.json)
           else
             INPUT=[$(cat envs/${{ github.event.inputs.environment }}.json)]
