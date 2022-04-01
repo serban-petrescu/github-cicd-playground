@@ -10,6 +10,7 @@ on:
 jobs:
   MAIN: 
    runs-on: ubuntu-latest
+   name: Main ${{ matrix.input.NAME }}
    strategy:
       matrix: 
         input: ${{fromJSON(inputs.INPUT_JSON)}}
