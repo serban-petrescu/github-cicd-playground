@@ -5,14 +5,10 @@ on:
     branches:
       - main
 
-env:
-  SOME_VARIABLE: some-variable-value
-  ANOTHER_VARIABLE:  another-variable-value
-
 jobs:
   MAIN: 
    uses: ./.github/workflows/reuse-normalized-inputs.yml
    with:
-    SOME_VARIABLE: ${{ env.SOME_VARIABLE }}
-    ANOTHER_VARIABLE: ${{ env.ANOTHER_VARIABLE }}
+    SOME_VARIABLE: some-variable-value
+    ANOTHER_VARIABLE: another-variable-value
           
