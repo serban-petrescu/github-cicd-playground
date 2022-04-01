@@ -1,0 +1,36 @@
+name: Deploy Settings Manager to QA
+
+on:
+ push:
+    branches:
+      - main
+
+env:
+  SOME_VARIABLE: some-variable-value
+  ANOTHER_VARIABLE:  another-variable-value
+
+jobs:
+  MAIN: 
+   runs-on: ubuntu-latest
+    steps:
+      - id: CHECKOUT
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - id: ECHO
+        run: |
+          echo <<- EOM
+          {
+            "environment: [{
+               "name": "HARDCODED_VARIABLE",
+               "value": "hardcoded"
+            }, {
+               "name": "SOME_VARIABLE",
+               "value": "${{ env.SOME_VARIABLE }}"
+            }, {
+               "name": "ANOTHER_VARIABLE",
+               "value": "${{ env.ANOTHER_VARIABLE }}"
+            }]
+          }
+          EOM
+          
