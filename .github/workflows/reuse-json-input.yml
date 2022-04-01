@@ -18,7 +18,7 @@ jobs:
 
       - id: ENV
         run: |
-          for s in $(echo "${{ inputs.INPUT_JSON }}" | jq -r "to_entries|map(\"ENV_\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
+          for s in $(echo '${{ inputs.INPUT_JSON }}' | jq -r "to_entries|map(\"ENV_\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
             echo $s
             echo $s >> $GITHUB_ENV
           done
