@@ -20,7 +20,7 @@ jobs:
         with:
           persist-credentials: false
       - id: ENV
-        run: echo "::set-output name=INPUT_JSON::$(cat envs/${{ github.event.inputs.environment }}.json)"
+        run: echo "::set-output name=INPUT_JSON::$(cat envs/${{ github.event.inputs.environment }}.json | tr -d '\n')"
 
   MAIN: 
    uses: ./.github/workflows/reuse-json-input.yml
