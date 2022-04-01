@@ -4,33 +4,41 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        required: true
+        required: false
         description: Environment
-        type: environment
+        type: choice
+        options:
+          - a
+          - b
 
 jobs:
   MAIN: 
    runs-on: ubuntu-latest
-   environment: 
-      name: ${{ github.event.inputs.environment }}
    steps:
       - id: CHECKOUT
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+
+      - id: ENV
+        run: |
+          for s in $(cat "envs/${{ github.event.inputs.environment }}" | jq -r "to_entries|map(\"\(.key|ascii_upcase)=\(.value|tostring)\")|.[]" ); do
+            echo $s >> $GITHUB_ENV
+          done
+
       - id: ECHO
         run: |
-          echo <<- EOM
+          echo <<EOM
           {
             "environment: [{
                "name": "HARDCODED_VARIABLE",
                "value": "hardcoded"
             }, {
                "name": "SOME_VARIABLE",
-               "value": "${{ secrets.SOME_VARIABLE }}"
+               "value": "$ENV_SOME_VARIABLE"
             }, {
                "name": "ANOTHER_VARIABLE",
-               "value": "${{ secrets.ANOTHER_VARIABLE }}"
+               "value": "$ENV_ANOTHER_VARIABLE"
             }]
           }
           EOM
