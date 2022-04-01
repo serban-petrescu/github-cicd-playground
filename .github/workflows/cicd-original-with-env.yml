@@ -1,0 +1,33 @@
+name: Original with Env
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+
+jobs:
+  MAIN: 
+   runs-on: ubuntu-latest
+   steps:
+      - id: CHECKOUT
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - id: ECHO
+        run: |
+          echo <<- EOM
+          {
+            "environment: [{
+               "name": "HARDCODED_VARIABLE",
+               "value": "hardcoded"
+            }, {
+               "name": "SOME_VARIABLE",
+               "value": "${{ secret.SOME_VARIABLE }}"
+            }, {
+               "name": "ANOTHER_VARIABLE",
+               "value": "${{ secret.ANOTHER_VARIABLE }}"
+            }]
+          }
+          EOM
+          
