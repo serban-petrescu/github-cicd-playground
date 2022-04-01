@@ -1,4 +1,4 @@
-name: Deploy Settings Manager to QA
+name: Original
 
 on:
   workflow_dispatch:
