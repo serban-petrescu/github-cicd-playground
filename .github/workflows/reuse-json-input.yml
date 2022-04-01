@@ -28,10 +28,10 @@ jobs:
                "value": "hardcoded"
             }, {
                "name": "SOME_VARIABLE",
-               "value": "${{ matrix.SOME_VARIABLE }}"
+               "value": "${{ matrix.input.SOME_VARIABLE }}"
             }, {
                "name": "ANOTHER_VARIABLE",
-               "value": "${{ matrix.ANOTHER_VARIABLE }}"
+               "value": "${{ matrix.input.ANOTHER_VARIABLE }}"
             }]
           }
           EOM
