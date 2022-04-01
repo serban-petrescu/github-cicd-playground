@@ -23,7 +23,7 @@ jobs:
       - id: ENV
         run: |
           if [ "${{ github.event.inputs.environment }}" = "ALL" ]; then
-            INPUT=$(jq -n 'inputs' envs/*.json)
+            INPUT=$(jq -n '[inputs]' envs/*.json)
           else
             INPUT=[$(cat envs/${{ github.event.inputs.environment }}.json)]
           fi
