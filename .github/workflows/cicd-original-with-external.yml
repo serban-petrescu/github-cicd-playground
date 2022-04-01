@@ -1,4 +1,4 @@
-name: Original with Env
+name: Original with Ext Env
 
 on:
   workflow_dispatch:
