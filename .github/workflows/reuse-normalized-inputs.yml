@@ -1,0 +1,37 @@
+name: Reuse (Norm. Inputs)
+
+on:
+  workflow_call:
+    inputs:
+      SOME_VARIABLE:
+        type: string
+        required: true
+        default: some-variable-value
+        description: Some variable
+      ANOTHER_VARIABLE:
+        type: string
+        required: true
+        default: another-variable-value
+        description: Another variable
+
+jobs:
+  MAIN: 
+   runs-on: ubuntu-latest
+   steps:
+      - id: ECHO
+        run: |
+          cat <<- EOM
+          {
+            "environment: [{
+               "name": "HARDCODED_VARIABLE",
+               "value": "hardcoded"
+            }, {
+               "name": "SOME_VARIABLE",
+               "value": "${{ github.event.inputs.SOME_VARIABLE }}"
+            }, {
+               "name": "ANOTHER_VARIABLE",
+               "value": "${{ github.event.inputs.ANOTHER_VARIABLE }}"
+            }]
+          }
+          EOM
+          
