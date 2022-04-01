@@ -1,0 +1,29 @@
+name: Reuse - Hardcoded
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: false
+        description: Environment
+        type: choice
+        options:
+          - a
+          - b
+
+jobs:
+  INPUT: 
+   runs-on: ubuntu-latest
+   steps:
+      - id: CHECKOUT
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - id: ENV
+        run: echo "::set-output name=INPUT_JSON::$(cat envs/${{ github.event.inputs.environment }}.json)"
+
+  MAIN: 
+   uses: ./.github/workflows/reuse-normalized-inputs.yml
+   needs: INPUT
+   with:
+    INPUT_JSON: ${{ needs.INPUT.outputs.INPUT_JSON }} 
