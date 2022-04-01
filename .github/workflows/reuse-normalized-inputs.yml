@@ -6,18 +6,19 @@ on:
       SOME_VARIABLE:
         type: string
         required: true
-        default: some-variable-value
-        description: Some variable
       ANOTHER_VARIABLE:
         type: string
         required: true
-        default: another-variable-value
-        description: Another variable
 
 jobs:
   MAIN: 
    runs-on: ubuntu-latest
    steps:
+      - id: CHECKOUT
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
       - id: ECHO
         run: |
           cat <<- EOM
@@ -27,10 +28,10 @@ jobs:
                "value": "hardcoded"
             }, {
                "name": "SOME_VARIABLE",
-               "value": "${{ github.event.inputs.SOME_VARIABLE }}"
+               "value": "${{ inputs.SOME_VARIABLE }}"
             }, {
                "name": "ANOTHER_VARIABLE",
-               "value": "${{ github.event.inputs.ANOTHER_VARIABLE }}"
+               "value": "${{ inputs.ANOTHER_VARIABLE }}"
             }]
           }
           EOM
