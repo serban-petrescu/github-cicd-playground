@@ -20,7 +20,7 @@ jobs:
           persist-credentials: false
       - id: ECHO
         run: |
-          echo <<- EOM
+          cat <<- EOM
           {
             "environment: [{
                "name": "HARDCODED_VARIABLE",
