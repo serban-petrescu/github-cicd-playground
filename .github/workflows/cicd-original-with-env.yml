@@ -23,10 +23,10 @@ jobs:
                "value": "hardcoded"
             }, {
                "name": "SOME_VARIABLE",
-               "value": "${{ secret.SOME_VARIABLE }}"
+               "value": "${{ secrets.SOME_VARIABLE }}"
             }, {
                "name": "ANOTHER_VARIABLE",
-               "value": "${{ secret.ANOTHER_VARIABLE }}"
+               "value": "${{ secrets.ANOTHER_VARIABLE }}"
             }]
           }
           EOM
